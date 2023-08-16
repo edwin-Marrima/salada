@@ -6,15 +6,15 @@ type Parameter struct {
 	// Name is an optional name for the argument. This package ignores this
 	// value, but callers may use it for documentation, etc.
 	Name string
-
 	// Description is an optional description for the argument.
 	Description string
-
-	// A type that any argument for this parameter must conform to.
-	Type reflect.Type
+	// Type is type that any argument for this parameter must conform to.
+	Type reflect.Kind
 }
 
 type FuncSpecification struct {
+	// Name is a function name
+	Name string
 	// Description is an optional description for the function specification.
 	Description string
 	// Params is a description of the positional parameters for the function.
@@ -29,8 +29,4 @@ type FuncSpecification struct {
 type FuncReturn struct {
 	Value any
 	Type  reflect.Type
-}
-
-func NewFunctionSpecification() *FuncSpecification {
-	return &FuncSpecification{}
 }
