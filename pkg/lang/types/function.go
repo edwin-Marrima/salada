@@ -30,7 +30,7 @@ func (f Function) Call(args ...any) (FuncReturn, error) {
 	return f.spec.Implementation(args)
 }
 
-// convertSentParametersToString transforms a list of sent parameters into a formatted string for use in error messages.
+// convertSentParametersToString transforms a list of sent parameters into a formatted string in order to use in error messages.
 func (f Function) convertSentParametersToString(parameters []any) string {
 	argsString := fmt.Sprintf("%s(", f.spec.Name)
 	for i, arg := range parameters {
@@ -42,7 +42,7 @@ func (f Function) convertSentParametersToString(parameters []any) string {
 	return argsString + ")"
 }
 
-// convertExpectedParametersToString transforms a list of expected parameters into a formatted string for use in error messages.
+// convertExpectedParametersToString transforms a list of expected parameters into a formatted string in order to use in error messages.
 func (f Function) convertExpectedParametersToString() string {
 	paramsString := fmt.Sprintf("%s(", f.spec.Name)
 	for i, p := range f.spec.Params {
