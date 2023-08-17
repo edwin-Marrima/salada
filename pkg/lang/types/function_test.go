@@ -28,7 +28,7 @@ func TestFunction_Call(t *testing.T) {
 						},
 					},
 				},
-				expectedError: NewWrongFunctionParametersError("max", "max(x int64, y int64)", "max(x string)"),
+				expectedError: fmt.Errorf(errWrongFunctionParameters, "max", "max(x int64, y int64)", "max(x string)"),
 			},
 			{
 				funcArgs: []interface{}{"2", 4},
@@ -45,7 +45,7 @@ func TestFunction_Call(t *testing.T) {
 						},
 					},
 				},
-				expectedError: NewWrongFunctionParametersError("max", "max(x int64, y int64)", "max(x string, y int)"),
+				expectedError: fmt.Errorf(errWrongFunctionParameters, "max", "max(x int64, y int64)", "max(x string, y int)"),
 			},
 		}
 		for _, testCase := range tests {

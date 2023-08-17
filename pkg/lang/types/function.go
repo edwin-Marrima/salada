@@ -20,11 +20,11 @@ func New(spec FuncSpecification) Function {
 // conform to the function's parameter specification or an error will be returned.
 func (f Function) Call(args ...any) (FuncReturn, error) {
 	if len(args) != len(f.spec.Params) {
-		return FuncReturn{}, NewWrongFunctionParametersError(f.spec.Name, f.convertExpectedParametersToString(), f.convertSentParametersToString(args))
+		return FuncReturn{}, fmt.Errorf(errWrongFunctionParameters, f.spec.Name, f.convertExpectedParametersToString(), f.convertSentParametersToString(args))
 	}
 	for i, arg := range args {
 		if reflect.TypeOf(arg).Kind() != f.spec.Params[i].Type {
-			return FuncReturn{}, NewWrongFunctionParametersError(f.spec.Name, f.convertExpectedParametersToString(), f.convertSentParametersToString(args))
+			return FuncReturn{}, fmt.Errorf(errWrongFunctionParameters, f.spec.Name, f.convertExpectedParametersToString(), f.convertSentParametersToString(args))
 		}
 	}
 	return f.spec.Implementation(args)
@@ -38,7 +38,6 @@ func (f Function) convertSentParametersToString(parameters []any) string {
 			argsString += ", "
 		}
 		argsString += fmt.Sprintf(`%s %s`, f.spec.Params[i].Name, reflect.TypeOf(arg).Kind().String())
-
 	}
 	return argsString + ")"
 }
