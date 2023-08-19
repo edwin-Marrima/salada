@@ -9,7 +9,8 @@ type Parameter struct {
 	// Description is an optional description for the argument.
 	Description string
 	// Type is type that any argument for this parameter must conform to.
-	Type reflect.Kind
+	// The parameter must be compatible with at least one element of the type list, elements are evaluated using `or`
+	Type []reflect.Kind
 }
 
 type FuncSpecification struct {

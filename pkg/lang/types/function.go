@@ -23,11 +23,20 @@ func (f Function) Call(args ...any) (FuncReturn, error) {
 		return FuncReturn{}, fmt.Errorf(errWrongFunctionParameters, f.spec.Name, f.convertExpectedParametersToString(), f.convertSentParametersToString(args))
 	}
 	for i, arg := range args {
-		if reflect.TypeOf(arg).Kind() != f.spec.Params[i].Type {
+		if !f.typeIsEqual(reflect.TypeOf(arg).Kind(), f.spec.Params[i].Type) {
 			return FuncReturn{}, fmt.Errorf(errWrongFunctionParameters, f.spec.Name, f.convertExpectedParametersToString(), f.convertSentParametersToString(args))
 		}
 	}
 	return f.spec.Implementation(args)
+}
+
+func (f Function) typeIsEqual(t reflect.Kind, expectedType []reflect.Kind) bool {
+	for _, v := range expectedType {
+		if v != t {
+			return false
+		}
+	}
+	return true
 }
 
 // convertSentParametersToString transforms a list of sent parameters into a formatted string in order to use in error messages.
@@ -49,7 +58,11 @@ func (f Function) convertExpectedParametersToString() string {
 		if i > 0 {
 			paramsString += ", "
 		}
-		paramsString += fmt.Sprintf(`%s %s`, p.Name, p.Type.String())
+		parametersSupportedTypes := p.Type[0].String()
+		for _, v := range p.Type[1:] {
+			parametersSupportedTypes += fmt.Sprintf(" | %s", v.String())
+		}
+		paramsString += fmt.Sprintf(`%s %s`, p.Name, parametersSupportedTypes)
 	}
 	return paramsString + ")"
 }
