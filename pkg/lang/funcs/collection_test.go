@@ -15,6 +15,16 @@ func TestLengthOf(t *testing.T) {
 			args:           "abc",
 			expectedResult: 3,
 		},
+		{
+			description:    "Must return slice length",
+			args:           []string{"a", "b"},
+			expectedResult: 2,
+		},
+		{
+			description:    "Must return slice length",
+			args:           map[string]string{"a": "b", "c": "d"},
+			expectedResult: 2,
+		},
 	}
 	for _, tt := range testCases {
 		t.Run(tt.description, func(t *testing.T) {
