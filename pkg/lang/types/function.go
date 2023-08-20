@@ -18,25 +18,25 @@ func New(spec FuncSpecification) Function {
 
 // Call actually calls the function with the given arguments, which must
 // conform to the function's parameter specification or an error will be returned.
-func (f Function) Call(args ...any) (FuncReturn, error) {
+func (f Function) Call(args ...any) (interface{}, error) {
 	if len(args) != len(f.spec.Params) {
-		return FuncReturn{}, fmt.Errorf(errWrongFunctionParameters, f.spec.Name, f.convertExpectedParametersToString(), f.convertSentParametersToString(args))
+		return nil, fmt.Errorf(errWrongFunctionParameters, f.spec.Name, f.convertExpectedParametersToString(), f.convertSentParametersToString(args))
 	}
 	for i, arg := range args {
-		if !f.typeIsEqual(reflect.TypeOf(arg).Kind(), f.spec.Params[i].Type) {
-			return FuncReturn{}, fmt.Errorf(errWrongFunctionParameters, f.spec.Name, f.convertExpectedParametersToString(), f.convertSentParametersToString(args))
+		if !f.isOneOf(reflect.TypeOf(arg).Kind(), f.spec.Params[i].Type) {
+			return nil, fmt.Errorf(errWrongFunctionParameters, f.spec.Name, f.convertExpectedParametersToString(), f.convertSentParametersToString(args))
 		}
 	}
-	return f.spec.Implementation(args)
+	return f.spec.Implementation(args...)
 }
 
-func (f Function) typeIsEqual(t reflect.Kind, expectedType []reflect.Kind) bool {
+func (f Function) isOneOf(t reflect.Kind, expectedType []reflect.Kind) bool {
 	for _, v := range expectedType {
-		if v != t {
-			return false
+		if v == t {
+			return true
 		}
 	}
-	return true
+	return false
 }
 
 // convertSentParametersToString transforms a list of sent parameters into a formatted string in order to use in error messages.

@@ -24,10 +24,5 @@ type FuncSpecification struct {
 	// implementer from dealing with such inconsistencies.
 	Params []Parameter
 	// Implementation implements the function's behavior.
-	Implementation func(args ...any) (FuncReturn, error)
-}
-
-type FuncReturn struct {
-	Value any
-	Type  reflect.Type
+	Implementation func(args ...any) (any, error)
 }
