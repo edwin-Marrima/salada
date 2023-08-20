@@ -11,6 +11,10 @@ type Parameter struct {
 	// Type is type that any argument for this parameter must conform to.
 	// The parameter must be compatible with at least one element of the type list, elements are evaluated using `or`
 	Type []reflect.Kind
+	// ExtendedValidation is an optional function that allows you to perform additional validation
+	// checks in conjunction with the type validation done by the Function.Call method.
+	// The validation login is executed after type validation.
+	ExtendedValidation func(arg any) error
 }
 
 type FuncSpecification struct {

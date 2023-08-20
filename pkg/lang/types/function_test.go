@@ -1,6 +1,7 @@
 package types
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
 	"testing"
@@ -49,6 +50,26 @@ func TestFunction_Call(t *testing.T) {
 				},
 			},
 			expectedError: fmt.Errorf(errWrongFunctionParameters, "max", "max(x int64 | string, y int64)", "max(x string, y int)"),
+		},
+		{
+			testDescription: "Must run customValidations after type validation and the customValidation Func error must be contained on the returned error",
+			funcArgs:        []interface{}{0},
+			spec: FuncSpecification{
+				Name: "div",
+				Params: []Parameter{
+					{
+						Name: "x",
+						Type: []reflect.Kind{reflect.Int},
+						ExtendedValidation: func(args any) error {
+							if args.(int) == 0 {
+								return errors.New("division by zero is not allowed")
+							}
+							return nil
+						},
+					},
+				},
+			},
+			expectedError: errors.New("division by zero is not allowed"),
 		},
 	}
 	for _, testCase := range tests {

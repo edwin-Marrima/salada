@@ -26,7 +26,14 @@ func (f Function) Call(args ...any) (interface{}, error) {
 		if !f.isOneOf(reflect.TypeOf(arg).Kind(), f.spec.Params[i].Type) {
 			return nil, fmt.Errorf(errWrongFunctionParameters, f.spec.Name, f.convertExpectedParametersToString(), f.convertSentParametersToString(args))
 		}
+		if f.spec.Params[i].ExtendedValidation != nil {
+			err := f.spec.Params[i].ExtendedValidation(arg)
+			if err != nil {
+				return nil, err
+			}
+		}
 	}
+	fmt.Println("=====>")
 	return f.spec.Implementation(args...)
 }
 
