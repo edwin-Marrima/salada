@@ -2,6 +2,7 @@ package funcs
 
 import (
 	"errors"
+	"reflect"
 	"testing"
 )
 
@@ -98,6 +99,62 @@ func TestIndex(t *testing.T) {
 
 			}
 
+		})
+	}
+}
+
+func TestValues(t *testing.T) {
+	testCases := []struct {
+		description    string
+		args           []interface{}
+		expectedResult interface{}
+		expectErr      bool
+	}{
+		{
+			description:    "Must return list containing the values of the elements in that map",
+			args:           []interface{}{map[string]interface{}{"a": "1", "b": "7", "c": 44.5}},
+			expectedResult: []interface{}{"1", "7", 44.5},
+		},
+	}
+	for _, tt := range testCases {
+		t.Run(tt.description, func(t *testing.T) {
+			result, _ := Values(tt.args...)
+			exists := false
+			for _, v := range result.([]interface{}) {
+				exists = false
+				for _, v2 := range tt.expectedResult.([]interface{}) {
+					if v == v2 {
+						exists = true
+					}
+				}
+				if !exists {
+					t.Errorf("%s does not exists. Expected values: %s", v, tt.expectedResult)
+					break
+				}
+			}
+
+		})
+	}
+}
+
+func TestDistinct(t *testing.T) {
+	testCases := []struct {
+		description    string
+		args           []interface{}
+		expectedResult interface{}
+	}{
+		{
+			description:    "Must return a list with any duplicate elements removed",
+			args:           []any{[]any{"a", "b", "a", "c", "d", "b"}},
+			expectedResult: []any{"a", "b", "c", "d"},
+		},
+	}
+	for _, tt := range testCases {
+		t.Run(tt.description, func(t *testing.T) {
+			result, _ := Distinct(tt.args...)
+			if !reflect.DeepEqual(result, tt.expectedResult) {
+				t.Errorf("Result was incorrect.\ngot : %d\nwant: %d", result, tt.expectedResult)
+			}
 		})
 	}
 }

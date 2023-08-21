@@ -77,6 +77,51 @@ var IndexFunc = types.New(types.FuncSpecification{
 	},
 })
 
+var ValuesFunc = types.New(types.FuncSpecification{
+	Name: "values",
+	Description: "values takes a map and returns a list containing the values of the elements in that map." +
+		"The values are returned in random order.",
+	Params: []types.Parameter{
+		{
+			Name: "map",
+			Type: []reflect.Kind{reflect.Map},
+		},
+	},
+	Implementation: func(args ...any) (any, error) {
+		arg := args[0]
+		var values []interface{}
+		for _, v := range arg.(map[string]interface{}) {
+			values = append(values, v)
+		}
+		return values, nil
+	},
+})
+
+var DistinctFunc = types.New(types.FuncSpecification{
+	Name: "distinct ",
+	Description: "distinct takes a list and returns a new list with any duplicate elements removed. " +
+		"The first occurrence of each value is retained and the relative ordering of these elements is preserved.",
+	Params: []types.Parameter{
+		{
+			Name: "list",
+			Type: []reflect.Kind{reflect.Slice},
+		},
+	},
+	Implementation: func(args ...any) (any, error) {
+		list := args[0]
+		visited := make(map[string]struct{})
+		var distinctList []interface{}
+		for _, v := range list.([]interface{}) {
+			if _, found := visited[fmt.Sprintf("%s", v)]; found {
+				continue
+			}
+			visited[fmt.Sprintf("%s", v)] = struct{}{}
+			distinctList = append(distinctList, v)
+		}
+		return distinctList, nil
+	},
+})
+
 func LengthOf(args ...interface{}) (any, error) {
 	return LengthOfFunc.Call(args...)
 }
@@ -86,4 +131,11 @@ func AllTrue(args ...interface{}) (any, error) {
 }
 func Index(args ...interface{}) (any, error) {
 	return IndexFunc.Call(args...)
+}
+func Values(args ...interface{}) (any, error) {
+	return ValuesFunc.Call(args...)
+}
+
+func Distinct(args ...interface{}) (any, error) {
+	return DistinctFunc.Call(args...)
 }
