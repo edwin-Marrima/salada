@@ -1,6 +1,7 @@
 package funcs
 
 import (
+	"path/filepath"
 	"reflect"
 	"testing"
 )
@@ -51,6 +52,34 @@ func TestFileExtension(t *testing.T) {
 	for _, tt := range testCases {
 		t.Run(tt.description, func(t *testing.T) {
 			result, _ := FileExtension(tt.args...)
+			if !reflect.DeepEqual(result, tt.expectedResult) {
+				t.Errorf("Result was incorrect.\ngot : %d\nwant: %d", result, tt.expectedResult)
+			}
+		})
+	}
+}
+
+func TestAbspath(t *testing.T) {
+	testCases := []struct {
+		description    string
+		args           []interface{}
+		expectedResult interface{}
+	}{
+		{
+			description:    "Must return an absolute representation of path",
+			args:           []any{"./test-artifacts/filesystem_file-extension-001.txt"},
+			expectedResult: "",
+		},
+		{
+			description:    "Must return an absolute representation of path",
+			args:           []any{"./test-artifacts/filesystem_file-extension-xxx.txt"},
+			expectedResult: "",
+		},
+	}
+	for _, tt := range testCases {
+		t.Run(tt.description, func(t *testing.T) {
+			tt.expectedResult, _ = filepath.Abs(tt.args[0].(string))
+			result, _ := Abspath(tt.args...)
 			if !reflect.DeepEqual(result, tt.expectedResult) {
 				t.Errorf("Result was incorrect.\ngot : %d\nwant: %d", result, tt.expectedResult)
 			}
