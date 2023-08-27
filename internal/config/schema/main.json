@@ -1,0 +1,6 @@
+{
+  "title": "Match anything",
+  "description": "This is a schema that matches anything.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://salada.com/schemas/myschema.json"
+}
