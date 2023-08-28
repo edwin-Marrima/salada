@@ -1,0 +1,14 @@
+{
+  "provider": {
+    "allowed": [
+      {
+        "name" : "aws",
+        "source": "aassjkas",
+        "version": "sasaksa",
+        "configuration_parameters": {
+          "aaa": "abc"
+        }
+      }
+    ]
+  }
+}

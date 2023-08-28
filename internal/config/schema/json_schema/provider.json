@@ -1,0 +1,29 @@
+{
+  "title": "--",
+  "description": "----",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/edwin-Marrima/salada/terraform/provider",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "object",
+      "properties": {
+        "allowed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "source": { "type": "string" },
+              "version": { "type": "string" },
+              "configuration_parameters": {
+                "type": "object"
+              }
+            },
+            "required": ["name", "source", "version"]
+          }
+        }
+      }
+    }
+  }
+}
