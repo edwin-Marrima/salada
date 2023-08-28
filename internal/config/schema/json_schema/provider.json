@@ -17,7 +17,26 @@
               "source": { "type": "string" },
               "version": { "type": "string" },
               "configuration_parameters": {
-                "type": "object"
+                "type": "object",
+                "properties": {
+                  "access_key": {
+                    "type": "object",
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "allowed": {"type": "boolean"}
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "value": {"type": "string"}
+                        }
+                      }
+                    ]
+                  }
+                }
               }
             },
             "required": ["name", "source", "version"]

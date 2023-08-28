@@ -1,0 +1,20 @@
+{
+  "provider": {
+    "allowed": [
+      {
+        "name" : "aws",
+        "source": "aassjkas",
+        "version": "sasaksa",
+        "configuration_parameters": {
+          "access_key": {
+            "allowed": false,
+            "value": "af-south-1"
+          },
+          "region": {
+            "value": "af-south-1"
+          }
+        }
+      }
+    ]
+  }
+}
