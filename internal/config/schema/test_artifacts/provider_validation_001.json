@@ -4,10 +4,7 @@
       {
         "name" : "aws",
         "source": "aassjkas",
-        "version": "sasaksa",
-        "configuration_parameters": {
-          "aaa": "abc"
-        }
+        "version": "sasaksa"
       }
     ]
   }

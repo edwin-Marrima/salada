@@ -18,21 +18,23 @@
               "version": { "type": "string" },
               "configuration_parameters": {
                 "type": "object",
-                "properties": {
-                  "access_key": {
+                "patternProperties": {
+                  "^*": {
                     "type": "object",
+                    "properties": {
+                      "allowed": {"type": "boolean"},
+                      "value": {"type": "string"}
+                    },
                     "oneOf": [
                       {
-                        "type": "object",
-                        "properties": {
-                          "allowed": {"type": "boolean"}
-                        }
+                        "required": [
+                          "allowed"
+                        ]
                       },
                       {
-                        "type": "object",
-                        "properties": {
-                          "value": {"type": "string"}
-                        }
+                        "required": [
+                          "value"
+                        ]
                       }
                     ]
                   }

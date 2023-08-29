@@ -5,6 +5,7 @@
   "$id": "https://github.com/edwin-Marrima/salada/terraform/main",
   "type": "object",
   "properties": {
-    "provider" : {"$ref":  "https://github.com/edwin-Marrima/salada/terraform/provider#/properties/provider"}
+    "provider" : {"$ref":  "https://github.com/edwin-Marrima/salada/terraform/provider#/properties/provider"},
+    "variable": {"$ref":  "https://github.com/edwin-Marrima/salada/terraform/variable#/properties/variable"}
   }
 }

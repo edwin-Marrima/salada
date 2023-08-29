@@ -7,8 +7,10 @@
         "version": "sasaksa",
         "configuration_parameters": {
           "access_key": {
-            "allowed": false,
-            "value": false
+            "allowed": false
+          },
+          "region": {
+            "value": "af-south-1"
           }
         }
       }
