@@ -12,10 +12,10 @@ func Validate(schemaPath string) (bool, error) {
 
 	documentLoader := gojsonschema.NewReferenceLoader(schemaPath)
 
-	schemaLoader := gojsonschema.NewReferenceLoader(documentLoaderPath)
-	schemaLoader2 := gojsonschema.NewReferenceLoader("file://json_schema/provider.json")
-	schemaLoader3 := gojsonschema.NewReferenceLoader("file://json_schema/variable.json")
-	err := sl.AddSchemas(schemaLoader, schemaLoader2, schemaLoader3)
+	schemaLoader := gojsonschema.NewReferenceLoader("file://json_schema/main.json")
+	providerLoader := gojsonschema.NewReferenceLoader("file://json_schema/provider.json")
+	variableLoader := gojsonschema.NewReferenceLoader("file://json_schema/variable.json")
+	err := sl.AddSchemas(schemaLoader, providerLoader, variableLoader)
 	if err != nil {
 		return false, err
 	}
