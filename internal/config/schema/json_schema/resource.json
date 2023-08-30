@@ -1,0 +1,42 @@
+{
+  "title": "--",
+  "description": "----",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/edwin-Marrima/salada/terraform/resources",
+  "type": "object",
+  "properties": {
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {"type": "string"},
+          "allowed": {
+            "type": "object",
+            "properties": {
+              "when": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "enum": ["never", "always"]
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "resource":{"type": "string"},
+                        "condition": {"type": "string","enum": ["exists", "not_exist"]}
+                      },
+                      "required": ["resource", "condition"]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

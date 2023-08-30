@@ -6,6 +6,7 @@
   "type": "object",
   "properties": {
     "provider" : {"$ref":  "https://github.com/edwin-Marrima/salada/terraform/provider#/properties/provider"},
-    "variables": {"$ref":  "https://github.com/edwin-Marrima/salada/terraform/variable#/properties/variable"}
+    "variables": {"$ref":  "https://github.com/edwin-Marrima/salada/terraform/variable#/properties/variable"},
+    "resources": {"$ref":  "https://github.com/edwin-Marrima/salada/terraform/resources#/properties/resources"}
   }
 }

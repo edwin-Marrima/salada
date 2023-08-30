@@ -1,0 +1,28 @@
+{
+  "resources": [
+    {
+      "type": "aws_s3_bucket",
+      "allowed": {
+        "when": [
+          {
+            "resource": "aws_s3_bucket",
+            "condition": "exists"
+          }
+        ]
+      },
+      "change_actions": {
+        "update": {
+          "time": "* * * * *"
+        }
+      },
+      "attributes": {
+        "bucket_prefix": {
+          "value": "ABC"
+        },
+        "force_destroy": {
+          "value": false
+        }
+      }
+    }
+  ]
+}
