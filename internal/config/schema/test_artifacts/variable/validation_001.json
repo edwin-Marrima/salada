@@ -1,0 +1,10 @@
+{
+  "variables": {
+    "description": {
+      "value": "match_regex(`^*`)"
+    },
+    "name": {
+      "value": "match_regex(`^*`)"
+    }
+  }
+}
