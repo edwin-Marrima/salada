@@ -70,6 +70,11 @@ func TestValidateResourcesSchema(t *testing.T) {
 			document:        "file://test_artifacts/resource/validation_001.json",
 			expectedOutcome: true,
 		},
+		{
+			description:     "Attributes property MUST be an array of objects",
+			document:        "file://test_artifacts/resource/validation_002.json",
+			expectedOutcome: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.description, func(t *testing.T) {

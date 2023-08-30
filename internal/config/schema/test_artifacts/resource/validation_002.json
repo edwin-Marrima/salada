@@ -14,7 +14,13 @@
         "update": {
           "time": "* * * * *"
         }
-      }
+      },
+      "attributes": [
+        {
+          "name": "bucket_prefix",
+          "value": "x"
+        }
+      ]
     }
   ]
 }

@@ -34,6 +34,43 @@
                 ]
               }
             }
+          },
+          "change_actions": {
+            "type": "object",
+            "properties": {
+              "update": {
+                "type": "object",
+                "properties": {
+                  "time": {"type": "string"}
+                },
+                "required": ["time"]
+              },
+              "create": {
+                "type": "object",
+                "properties": {
+                  "time": {"type": "string"}
+                },
+                "required": ["time"]
+              },
+              "delete": {
+                "type": "object",
+                "properties": {
+                  "time": {"type": "string"}
+                },
+                "required": ["time"]
+              }
+            }
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {"type": "string"},
+                "name": {"type": "string"}
+              },
+              "required": ["value","name"]
+            }
           }
         }
       }
