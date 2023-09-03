@@ -1,0 +1,51 @@
+{
+  "provider": {
+    "list": [
+      {
+        "name": "aws",
+        "source": "hashicorp/aws",
+        "version": "greaterThan(5.9)",
+        "Allowed": true,
+        "configuration_parameters": [
+          {
+            "name": "access_key",
+            "value": null
+          },
+          {
+            "name": "region",
+            "value": "af-south-1"
+          }
+        ]
+      }
+    ]
+  },
+  "variables": {
+    "description": {
+      "value": "match_regex(`^*`)"
+    },
+    "name": {
+      "value": "match_regex(`^*`)"
+    }
+  },
+  "resources": [
+    {
+      "type": "aws_s3_bucket",
+      "allowed": {
+        "when": {
+          "expression": "false"
+        }
+      },
+      "change_actions": {
+        "update": {
+          "time": "* * * * *"
+        }
+      },
+      "attributes": [
+        {
+          "name": "bucket_prefix",
+          "value": "x"
+        }
+      ]
+    }
+  ]
+}

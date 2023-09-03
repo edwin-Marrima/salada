@@ -1,0 +1,12 @@
+{
+  "provider": {
+    "list": [
+      {
+        "name" : "aws",
+        "source": "aassjkas",
+        "version": "sasaksa",
+        "allowed": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "title": "--",
+  "description": "----",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/edwin-Marrima/salada/terraform/variable",
+  "type": "object",
+  "properties": {
+    "variable": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "object",
+            "properties": {
+              "value": {"type": "string"}
+            }
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "value": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

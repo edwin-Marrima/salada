@@ -1,0 +1,23 @@
+{
+  "resources": [
+    {
+      "type": "aws_s3_bucket",
+      "allowed": {
+        "when": {
+          "expression": false
+        }
+      },
+      "change_actions": {
+        "update": {
+          "time": "* * * * *"
+        }
+      },
+      "attributes": [
+        {
+          "name": "bucket_prefix",
+          "value": "x"
+        }
+      ]
+    }
+  ]
+}

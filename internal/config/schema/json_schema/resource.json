@@ -1,0 +1,66 @@
+{
+  "title": "--",
+  "description": "----",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/edwin-Marrima/salada/terraform/resources",
+  "type": "object",
+  "properties": {
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {"type": "string"},
+          "allowed": {
+            "type": "object",
+            "properties": {
+              "when": {
+                "type": "object",
+                "properties": {
+                  "expression":{"type": ["string","boolean"]}
+                }
+              }
+            }
+          },
+          "change_actions": {
+            "type": "object",
+            "properties": {
+              "update": {
+                "type": "object",
+                "properties": {
+                  "time": {"type": "string"}
+                },
+                "required": ["time"]
+              },
+              "create": {
+                "type": "object",
+                "properties": {
+                  "time": {"type": "string"}
+                },
+                "required": ["time"]
+              },
+              "delete": {
+                "type": "object",
+                "properties": {
+                  "time": {"type": "string"}
+                },
+                "required": ["time"]
+              }
+            }
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {"type": "string"},
+                "name": {"type": "string"}
+              },
+              "required": ["value","name"]
+            }
+          }
+        }
+      }
+    }
+  }
+}
