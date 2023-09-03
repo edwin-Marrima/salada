@@ -1,0 +1,22 @@
+{
+  "provider": {
+    "list": [
+      {
+        "name": "aws",
+        "source": "hashicorp/aws",
+        "version": "greaterThan(5.9)",
+        "Allowed": true,
+        "configuration_parameters": [
+          {
+            "name": "access_key",
+            "value": null
+          },
+          {
+            "name": "region",
+            "value": "af-south-1"
+          }
+        ]
+      }
+    ]
+  }
+}
