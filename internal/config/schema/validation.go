@@ -5,8 +5,6 @@ import (
 	"github.com/xeipuuv/gojsonschema"
 )
 
-const documentLoaderPath = "file://json_schema/main.json"
-
 func Validate(schemaPath string) (bool, error) {
 	sl := gojsonschema.NewSchemaLoader()
 
