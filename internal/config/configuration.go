@@ -61,6 +61,8 @@ type Configuration struct {
 	Resource []Resource `json:"resources"`
 }
 
+//TODO: review error handler
+
 func Parse(configFilePath string) (*Configuration, error) {
 	// Read the JSON file
 	data, err := os.ReadFile(configFilePath)

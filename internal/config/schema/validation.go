@@ -5,6 +5,8 @@ import (
 	"github.com/xeipuuv/gojsonschema"
 )
 
+//TODO: review error handler
+
 func Validate(schemaPath string) (bool, error) {
 	sl := gojsonschema.NewSchemaLoader()
 
