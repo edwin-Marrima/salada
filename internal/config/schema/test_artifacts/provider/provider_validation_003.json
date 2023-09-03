@@ -1,10 +1,11 @@
 {
   "provider": {
-    "allowed": [
+    "list": [
       {
         "name" : "aws",
         "source": "aassjkas",
         "version": "sasaksa",
+        "allowed": true,
         "configuration_parameters": [
           {
             "name": "access_key",
