@@ -8,7 +8,6 @@
     "provider": {
       "type": "object",
       "properties": {
-        "only_allow_listed": { "type": "boolean" },
         "list": {
           "type": "array",
           "items": {
