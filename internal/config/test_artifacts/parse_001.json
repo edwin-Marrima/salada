@@ -18,5 +18,34 @@
         ]
       }
     ]
-  }
+  },
+  "variables": {
+    "description": {
+      "value": "match_regex(`^*`)"
+    },
+    "name": {
+      "value": "match_regex(`^*`)"
+    }
+  },
+  "resources": [
+    {
+      "type": "aws_s3_bucket",
+      "allowed": {
+        "when": {
+          "expression": "false"
+        }
+      },
+      "change_actions": {
+        "update": {
+          "time": "* * * * *"
+        }
+      },
+      "attributes": [
+        {
+          "name": "bucket_prefix",
+          "value": "x"
+        }
+      ]
+    }
+  ]
 }
