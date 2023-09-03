@@ -18,27 +18,14 @@
               "source": { "type": "string" },
               "version": { "type": "string" },
               "configuration_parameters": {
-                "type": "object",
-                "patternProperties": {
-                  "^*": {
-                    "type": "object",
-                    "properties": {
-                      "allowed": {"type": "boolean"},
-                      "value": {"type": "string"}
-                    },
-                    "oneOf": [
-                      {
-                        "required": [
-                          "allowed"
-                        ]
-                      },
-                      {
-                        "required": [
-                          "value"
-                        ]
-                      }
-                    ]
-                  }
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {"type": ["string", "null"] },
+                    "name": {"type": "string"}
+                  },
+                  "required": ["value","name"]
                 }
               }
             },

@@ -18,12 +18,12 @@ func TestValidateProviderSchema(t *testing.T) {
 			expectedOutcome: true,
 		},
 		{
-			description:     "Must return true when `configuration_parameters` contains objects with oneOf: [allowed,value] sub_properties",
+			description:     "Must return true when `configuration_parameters` contains array of objects with name and value property",
 			document:        "file://test_artifacts/provider/provider_validation_002.json",
 			expectedOutcome: true,
 		},
 		{
-			description:     "Must return false when  `configuration_parameters` contains objects with both: [allowed,value] sub_properties",
+			description:     "Must return false when  `configuration_parameters` does not contain both: [name and value]",
 			document:        "file://test_artifacts/provider/provider_validation_003.json",
 			expectedOutcome: false,
 		},
