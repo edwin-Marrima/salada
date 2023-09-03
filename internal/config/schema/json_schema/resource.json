@@ -15,23 +15,10 @@
             "type": "object",
             "properties": {
               "when": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "enum": ["never", "always"]
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "resource":{"type": "string"},
-                        "condition": {"type": "string","enum": ["exists", "not_exist"]}
-                      },
-                      "required": ["resource", "condition"]
-                    }
-                  }
-                ]
+                "type": "object",
+                "properties": {
+                  "expression":{"type": ["string","boolean"]}
+                }
               }
             }
           },

@@ -3,12 +3,9 @@
     {
       "type": "aws_s3_bucket",
       "allowed": {
-        "when": [
-          {
-            "resource": "aws_s3_bucket",
-            "condition": "exists"
-          }
-        ]
+        "when": {
+          "expression": false
+        }
       },
       "change_actions": {
         "update": {
