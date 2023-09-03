@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -56,8 +55,7 @@ func TestParse(t *testing.T) {
 
 	for _, tt := range testCases {
 		t.Run(tt.description, func(t *testing.T) {
-			c, err := Parse(tt.filePath)
-			fmt.Println("===>", err)
+			c, _ := Parse(tt.filePath)
 			assert.Equal(t, tt.expectedOutcome, *c)
 		})
 	}
