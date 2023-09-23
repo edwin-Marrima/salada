@@ -1,7 +1,6 @@
 package tf_plan
 
 import (
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -140,9 +139,9 @@ func TestParsePlanFile(t *testing.T) {
 	}
 	for _, tt := range testCase {
 		t.Run(tt.description, func(t *testing.T) {
-			outcome, err := ParsePlanFile(tt.inputFilePath)
+			outcome, _ := ParsePlanFile(tt.inputFilePath)
 			assert.Equal(t, &tt.expectedOutcome, outcome)
-			fmt.Println(outcome, err)
+
 		})
 	}
 }

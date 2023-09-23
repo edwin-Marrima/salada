@@ -50,6 +50,16 @@ func ParsePlanFile(planFilepath string) (*PlanFile, error) {
 func extractProvider(planFile map[string]interface{}) map[string]ProviderConfiguration {
 	provider := make(map[string]ProviderConfiguration)
 
+	config := planFile["configuration"].(map[string]interface{})
+	providerConfiguration := config["provider_config"].(map[string]interface{})
+	for k, v := range providerConfiguration {
+		prv := v.(map[string]interface{})
+		provider[k] = ProviderConfiguration{
+			Name:              prv["name"].(string),
+			FullName:          prv["full_name"].(string),
+			VersionConstraint: prv["version_constraint"].(string),
+		}
+	}
 	return provider
 }
 func extractModuleResources(planFile map[string]interface{}) (map[string]Resource, map[string]Resource) {
