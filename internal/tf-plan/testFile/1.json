@@ -4,6 +4,9 @@
   "variables": {
     "aaa": {
       "value": "aaa"
+    },
+    "environment": {
+      "value": "dev"
     }
   },
   "planned_values": {
@@ -63,7 +66,7 @@
           "provider_name": "registry.terraform.io/hashicorp/aws",
           "schema_version": 0,
           "values": {
-            "bucket": "my-tf-test-bucket",
+            "bucket": "aaaaa-dev",
             "force_destroy": false,
             "tags": {
               "Environment": "Dev",
@@ -89,6 +92,47 @@
             "website": []
           }
         }
+      ],
+      "child_modules": [
+        {
+          "resources": [
+            {
+              "address": "module.bucket_provisioner.aws_s3_bucket.example",
+              "mode": "managed",
+              "type": "aws_s3_bucket",
+              "name": "example",
+              "provider_name": "registry.terraform.io/hashicorp/aws",
+              "schema_version": 0,
+              "values": {
+                "bucket": "bucket-test",
+                "force_destroy": false,
+                "tags": {
+                  "Environment": "Dev",
+                  "Name": "My bucket"
+                },
+                "tags_all": {
+                  "Environment": "Dev",
+                  "Name": "My bucket"
+                },
+                "timeouts": null
+              },
+              "sensitive_values": {
+                "cors_rule": [],
+                "grant": [],
+                "lifecycle_rule": [],
+                "logging": [],
+                "object_lock_configuration": [],
+                "replication_configuration": [],
+                "server_side_encryption_configuration": [],
+                "tags": {},
+                "tags_all": {},
+                "versioning": [],
+                "website": []
+              }
+            }
+          ],
+          "address": "module.bucket_provisioner"
+        }
       ]
     }
   },
@@ -101,7 +145,7 @@
       "provider_name": "registry.terraform.io/hashicorp/aws",
       "change": {
         "actions": [
-          "create"
+            "create"
         ],
         "before": null,
         "after": {
@@ -144,7 +188,7 @@
         ],
         "before": null,
         "after": {
-          "bucket": "my-tf-test-bucket",
+          "bucket": "aaaaa-dev",
           "force_destroy": false,
           "tags": {
             "Environment": "Dev",
@@ -200,19 +244,19 @@
       }
     },
     {
-      "address": "null_resource.cluster",
+      "address": "null_resource.cluster_dummy",
       "mode": "managed",
       "type": "null_resource",
-      "name": "cluster",
+      "name": "cluster_dummy",
       "provider_name": "registry.terraform.io/hashicorp/null",
       "change": {
         "actions": [
           "delete"
         ],
         "before": {
-          "id": "6880635909805303992",
+          "id": "1580278013551376455",
           "triggers": {
-            "cluster_instance_ids": "aaa"
+            "cluster_instance_ids": "aaaaa"
           }
         },
         "after": null,
@@ -223,6 +267,74 @@
         "after_sensitive": false
       },
       "action_reason": "delete_because_no_resource_config"
+    },
+    {
+      "address": "module.bucket_provisioner.aws_s3_bucket.example",
+      "module_address": "module.bucket_provisioner",
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "example",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "bucket": "bucket-test",
+          "force_destroy": false,
+          "tags": {
+            "Environment": "Dev",
+            "Name": "My bucket"
+          },
+          "tags_all": {
+            "Environment": "Dev",
+            "Name": "My bucket"
+          },
+          "timeouts": null
+        },
+        "after_unknown": {
+          "acceleration_status": true,
+          "acl": true,
+          "arn": true,
+          "bucket_domain_name": true,
+          "bucket_prefix": true,
+          "bucket_regional_domain_name": true,
+          "cors_rule": true,
+          "grant": true,
+          "hosted_zone_id": true,
+          "id": true,
+          "lifecycle_rule": true,
+          "logging": true,
+          "object_lock_configuration": true,
+          "object_lock_enabled": true,
+          "policy": true,
+          "region": true,
+          "replication_configuration": true,
+          "request_payer": true,
+          "server_side_encryption_configuration": true,
+          "tags": {},
+          "tags_all": {},
+          "versioning": true,
+          "website": true,
+          "website_domain": true,
+          "website_endpoint": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "cors_rule": [],
+          "grant": [],
+          "lifecycle_rule": [],
+          "logging": [],
+          "object_lock_configuration": [],
+          "replication_configuration": [],
+          "server_side_encryption_configuration": [],
+          "tags": {},
+          "tags_all": {},
+          "versioning": [],
+          "website": []
+        }
+      }
     }
   ],
   "output_changes": {
@@ -274,16 +386,16 @@
       "root_module": {
         "resources": [
           {
-            "address": "null_resource.cluster",
+            "address": "null_resource.cluster_dummy",
             "mode": "managed",
             "type": "null_resource",
-            "name": "cluster",
+            "name": "cluster_dummy",
             "provider_name": "registry.terraform.io/hashicorp/null",
             "schema_version": 0,
             "values": {
-              "id": "6880635909805303992",
+              "id": "1580278013551376455",
               "triggers": {
-                "cluster_instance_ids": "aaa"
+                "cluster_instance_ids": "aaaaa"
               }
             },
             "sensitive_values": {
@@ -349,7 +461,10 @@
           "provider_config_key": "aws",
           "expressions": {
             "bucket": {
-              "constant_value": "my-tf-test-bucket"
+              "references": [
+                "local.bucket_name",
+                "var.environment"
+              ]
             },
             "tags": {
               "constant_value": {
@@ -361,13 +476,45 @@
           "schema_version": 0
         }
       ],
+      "module_calls": {
+        "bucket_provisioner": {
+          "source": "./bucket",
+          "module": {
+            "resources": [
+              {
+                "address": "aws_s3_bucket.example",
+                "mode": "managed",
+                "type": "aws_s3_bucket",
+                "name": "example",
+                "provider_config_key": "aws",
+                "expressions": {
+                  "bucket": {
+                    "constant_value": "bucket-test"
+                  },
+                  "tags": {
+                    "constant_value": {
+                      "Environment": "Dev",
+                      "Name": "My bucket"
+                    }
+                  }
+                },
+                "schema_version": 0
+              }
+            ]
+          }
+        }
+      },
       "variables": {
         "aaa": {
           "default": "aaa",
+          "description": "value"
+        },
+        "environment": {
+          "default": "dev",
           "description": "value"
         }
       }
     }
   },
-  "timestamp": "2023-09-13T19:04:25Z"
+  "timestamp": "2023-09-23T11:54:07Z"
 }
