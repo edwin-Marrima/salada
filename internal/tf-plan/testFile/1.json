@@ -507,7 +507,8 @@
       "variables": {
         "aaa": {
           "default": "aaa",
-          "description": "value"
+          "description": "value",
+          "sensitive": true
         },
         "environment": {
           "default": "dev",

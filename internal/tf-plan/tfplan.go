@@ -6,12 +6,19 @@ import (
 )
 
 type PlanFile struct {
+	Variables     []Variable
 	FormatVersion string              `json:"format_version"`
 	Resources     map[string]Resource `json:"resources"`
 	// ModuleRemovedResources contains resources whose definition was deleted from the mods
 	ModuleRemovedResources map[string]Resource
 	// ProviderConfiguration holds provider configuration
 	ProviderConfiguration map[string]ProviderConfiguration
+}
+type Variable struct {
+	Name        string
+	Description string
+	Sensitive   bool
+	HasDefault  bool
 }
 
 type Resource struct {
@@ -45,8 +52,29 @@ func ParsePlanFile(planFilepath string) (*PlanFile, error) {
 	tfplan.FormatVersion = planFile["format_version"].(string)
 	tfplan.Resources, tfplan.ModuleRemovedResources = extractModuleResources(planFile)
 	tfplan.ProviderConfiguration = extractProvider(planFile)
+	tfplan.Variables = extractVariables(planFile)
 	return &tfplan, nil
 }
+
+func extractVariables(planFile map[string]interface{}) []Variable {
+	var variables []Variable
+	config := planFile["configuration"].(map[string]interface{})
+	rootModule := config["root_module"].(map[string]interface{})
+	for k, v := range rootModule["variables"].(map[string]interface{}) {
+		vv := v.(map[string]interface{})
+		variable := Variable{Name: k}
+		if v, found := vv["description"]; found {
+			variable.Description = v.(string)
+		}
+		_, variable.HasDefault = vv["default"]
+
+		// when the sensitive field is false terraform does not include it in the PlanFile
+		_, variable.Sensitive = vv["sensitive"].(bool)
+		variables = append(variables, variable)
+	}
+	return variables
+}
+
 func extractProvider(planFile map[string]interface{}) map[string]ProviderConfiguration {
 	provider := make(map[string]ProviderConfiguration)
 

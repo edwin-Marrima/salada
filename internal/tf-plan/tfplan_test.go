@@ -15,6 +15,20 @@ func TestParsePlanFile(t *testing.T) {
 			description:   "-",
 			inputFilePath: "testFile/1.json",
 			expectedOutcome: PlanFile{
+				Variables: []Variable{
+					{
+						Name:        "aaa",
+						Description: "value",
+						HasDefault:  true,
+						Sensitive:   true,
+					},
+					{
+						Name:        "environment",
+						Description: "value",
+						HasDefault:  true,
+						Sensitive:   false,
+					},
+				},
 				ProviderConfiguration: map[string]ProviderConfiguration{
 					"aws": {
 						Name:              "aws",
