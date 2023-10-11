@@ -31,6 +31,7 @@ func Validate(schemaPath string) (bool, error) {
 	if result.Valid() {
 		return true, err
 	}
+
 	for _, e := range result.Errors() {
 		fmt.Println("=>", e)
 	}
