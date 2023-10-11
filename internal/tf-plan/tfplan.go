@@ -58,6 +58,7 @@ func ParsePlanFile(planFilepath string) (*PlanFile, error) {
 
 func extractVariables(planFile map[string]interface{}) []Variable {
 	var variables []Variable
+
 	config := planFile["configuration"].(map[string]interface{})
 	rootModule := config["root_module"].(map[string]interface{})
 	for k, v := range rootModule["variables"].(map[string]interface{}) {
